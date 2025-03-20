@@ -16,9 +16,9 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
                 <nav className='mt-12'>
                 <ul className='flex flex-col space-y-4 text-xl'>
                     <Link to='/'><li onClick={()=>setShowMenu(false)}>Home</li></Link>
-                    <Link to='/mens'><li onClick={()=>setShowMenu(false)}>Mens</li></Link>
-                    <Link to='/womens'><li onClick={()=>setShowMenu(false)}>Womens</li></Link>
-                    <Link to='/kids'><li onClick={()=>setShowMenu(false)}>Kids</li></Link>
+                    <Link to='/products'><li onClick={()=>setShowMenu(false)}>Products</li></Link>
+                    <Link to='/campaigns'><li onClick={()=>setShowMenu(false)}>Campaign</li></Link>
+                    <Link to='/about'><li onClick={()=>setShowMenu(false)}>About</li></Link>
                     <Link to='/login'><button onClick={()=>setShowMenu(false)} className='bg-red-500 text-white px-4 py-1 rounded-md'>Login</button></Link>
                     
                 </ul>

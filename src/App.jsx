@@ -8,6 +8,10 @@ import HomePage from './Pages/HomePage'
 import Footer from './Components/Footer'
 import { SearchProvider } from './Context/SearchContext'
 import SingleProduct from './Components/SingleProduct'
+import Cart from './Pages/Cart'
+import Login from './Pages/Login'
+import Campaigns from './Pages/Campaigns'
+import CreateCampaign from './Pages/CreateCampaigns'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,9 +23,13 @@ function App() {
       <SearchProvider>
       
          <Routes>
-         <Route path='/' element={<HomePage/>} />
-         <Route path='/campaign/:id' element={<SingleProduct/>}/>
-        
+           <Route path='/' element={<HomePage/>} />
+           <Route path='/campaign/:id' element={<SingleProduct/>}/>
+           <Route path='/cart' element={<Cart/>} />
+           <Route path='/login' element={<Login/>} />
+           <Route path='/campaigns' element={<Campaigns/>} />
+           <Route path='/products' element={<Campaigns/>} />
+           <Route path='/createCampaign' element={<CreateCampaign/>} />
          </Routes>
          </SearchProvider>
       <Footer/>   
