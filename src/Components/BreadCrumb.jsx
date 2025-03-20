@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 const Breadcrumb = () => {
   const { id } = useParams(); // Get product ID from the URL
   const [product, setProduct] = useState(null);
+  
 
   useEffect(() => {
     // Get product from localStorage

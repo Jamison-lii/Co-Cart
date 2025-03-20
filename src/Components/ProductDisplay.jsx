@@ -1,12 +1,24 @@
 import { Star } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+
 
 const ProductDisplay = () => {
   const { id } = useParams(); // Get the product ID from the URL
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [person, setPerson] = useState(null);
+  
+
+  // Fetch user data from localStorage inside useEffect
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setPerson(JSON.parse(user));
+    }
+  }, []); // Empty dependency array ensures this runs only once on mount
 
   useEffect(() => {
     const storedProduct = localStorage.getItem("selectedProduct");
@@ -42,8 +54,37 @@ const ProductDisplay = () => {
   if (loading) return <p>Loading product details...</p>;
   if (error) return <p>{error}</p>;
 
+
+  const handleStatus = async () => {
+    const Url = `https://rrn24.techchantier.site/buy-together-api/public/api/purchase-goals/${campaignData.data.id}/change-status`;
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(Url, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        toast.success("Status changed successfully");
+      } else {
+        toast.error("Error on changing campaign status");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 my-20 md:gap-10 px-6 md:px-0">
+      {console.log("person:", person)}
+      {console.log("product", product)}
       {/* Large Product Image */}
       <div className="flex justify-center">
         <img
@@ -92,11 +133,38 @@ const ProductDisplay = () => {
           </div>
         </div>
 
-        <Link to="/cart">
+
+
+        {person.id === product.created_by.id ? (
+          <>
+          <Link to='/viewRequests'>
+            <button  className="bg-red-500 text-white px-6 py-3 my-4 w-max">
+              View Requests
+            </button>
+            </Link>
+            {product.status === "open" ? (
+              <button onClick={handleStatus} className="bg-red-500 text-white px-6 py-3 my-4 w-max">
+                Close Campaign
+              </button>
+            ) : (
+              <button onClick={handleStatus} className="bg-red-500 text-white px-6 py-3 my-4 w-max">
+                Open Campaign
+              </button>
+            )}
+          </>
+        ) : (
+          <Link to="/cart">
           <button className="bg-red-500 text-white px-6 py-3 my-4 w-max">
             JOIN CAMPAIGN
           </button>
         </Link>
+        )}
+
+
+
+
+
+       
         <p>
           <span className="font-semibold">Category:</span> Women, T-shirt, Crop
           top
@@ -105,6 +173,7 @@ const ProductDisplay = () => {
           <span className="font-semibold">Tags:</span> Modern, Latest
         </p>
       </div>
+      <ToastContainer/>
     </div>
   );
 };
