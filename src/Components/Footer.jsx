@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Logo from '../assets/Logo.png'
+import Logo from '../assets/logo1.png'
 import { FaFacebook, FaInstagram, FaPinterest, FaTwitterSquare } from 'react-icons/fa'
 
 const Footer = () => {
@@ -10,12 +10,12 @@ const Footer = () => {
         {/*  info */}
         <div className='mb-6 md:mb-0'>
             <Link to='/'>
-              <img src={Logo} alt="" className='w-32'/>
+              <img src={Logo} alt="" className='w-27'/>
             </Link>
-            <p className='mt-2 text-sm'>High-quality, sustainable clothing at affordable prices.</p>
-            <p className='mt-2 text-sm'>123 Fashion St, Style City, NY 10001</p>
-            <p className='text-sm'>Email: support@clothify.com</p>
-            <p className='text-sm'>Phone: (123) 456-7890</p>
+            <p className='mt-2 text-sm'>Join group purchases and benefit off group discounts.</p>
+            <p className='mt-2 text-sm'>Bokwai , Buea, Cameroon</p>
+            <p className='text-sm'>Email: support@clothify.com</p> 
+            <p className='text-sm'>Phone: (123) 456-7890</p> 
         </div>
         {/* customer service link */}
         <div className='mb-6 md:mb-0'>
@@ -54,7 +54,7 @@ const Footer = () => {
       </div>
       {/* bottom section */}
       <div className='mt-8 border-t border-gray-700 pt-6 text-center text-sm'>
-        <p>&copy; {new Date().getFullYear()}<span className='text-red-500'>Clothify</span>.All rights reserved</p>
+        <p>&copy; {new Date().getFullYear()}<span className='text-red-500'>  Co-Cart </span>.All rights reserved</p>
       </div>
     </footer>
   )

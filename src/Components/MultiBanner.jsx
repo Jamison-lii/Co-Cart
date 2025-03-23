@@ -12,7 +12,7 @@ const MultiBanner = () => {
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
                     <div className='absolute inset-0 bg-gray-800 rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
-                        <h2 className='text-white text-2xl font-bold'>New Arrivals</h2>
+                        <h2 className='text-white text-2xl font-bold'>New Campaigns</h2>
                         <button className='mt-2 px-3 py-1 bg-white text-green-800 rounded-md shadow hover:bg-gray-200'>Discover</button>
                     </div>
                 </div>
@@ -24,7 +24,7 @@ const MultiBanner = () => {
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
                     <div className='absolute inset-0 bg-blue-900 rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
-                        <h2 className='text-white text-2xl font-bold'>Limited Offer</h2>
+                        <h2 className='text-white text-2xl font-bold'>Ending soon</h2>
                     </div>
                 </div>
                 {/* third banner */}
@@ -35,7 +35,7 @@ const MultiBanner = () => {
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
                     <div className='absolute inset-0 bg-yellow-800 bg-opacity-50 flex flex-col items-center rounded-lg justify-center'>
-                        <h2 className='text-white text-4xl font-bold'>Season Sale</h2>
+                        <h2 className='text-white text-4xl font-bold'>Products</h2>
                         <p className='text-white my-2 text-lg'>Up to 70% Off</p>
                         <button className='text-white bg-yellow-600 px-3 py-2 hover:bg-yellow-500 rounded-md'>Shop Now</button>
                     </div>
@@ -47,8 +47,8 @@ const MultiBanner = () => {
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
                     <div className='absolute inset-0 bg-orange-800 bg-opacity-50 flex flex-col items-center rounded-lg justify-center'>
-                        <h2 className='text-white text-4xl font-bold'>Season Sale</h2>
-                        <p className='text-white my-2 text-lg'>Up to 70% Off</p>
+                        <h2 className='text-white text-4xl font-bold'>Popular</h2>
+                        <p className='text-white my-2 text-lg'>Populated Campaigns</p>
                         <button className='text-white bg-red-500 px-3 py-2 hover:bg-red-600 rounded-md'>Shop Now</button>
                     </div>
                 </div>
@@ -60,7 +60,7 @@ const MultiBanner = () => {
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
                     <div className='absolute inset-0 bg-blue-900 rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
-                        <h2 className='text-white text-2xl font-bold'>Limited Offer</h2>
+                        <h2 className='text-white text-2xl font-bold'>Ending soon</h2>
                     </div>
                 </div>
                 {/* sixth banner */}

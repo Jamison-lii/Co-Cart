@@ -14,6 +14,8 @@ import Campaigns from './Pages/Campaigns'
 import CreateCampaign from './Pages/CreateCampaigns'
 import ViewRequests from './Pages/ViewRequests'
 import Product from './Pages/Products'
+import UpdateCampaign from './Pages/UpdateCampaign'
+import Profile from './Pages/Profile'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -34,6 +36,8 @@ function App() {
            <Route path='/products' element={<Product/>} />
            <Route path='/createCampaign' element={<CreateCampaign/>} />
            <Route path='/viewRequests' element={<ViewRequests/>} />
+           <Route path='/updateCampaign' element={<UpdateCampaign/>} />
+           <Route path='/profile' element={<Profile/>} />
          </Routes>
          </SearchProvider>
       <Footer/> 

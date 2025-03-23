@@ -4,10 +4,12 @@ import { ShoppingCart } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { HiMenuAlt1, HiMenuAlt3 } from "react-icons/hi";
 import ResponsiveMenu from './ResponsiveMenu';
+import { FaPersonBooth } from 'react-icons/fa';
 // import { Shopcontext } from '../../Context/ShopContext';
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false)
+  const token = localStorage.getItem("token");
 
   //const {getTotalCartItems} = useContext(Shopcontext)
 
@@ -26,15 +28,20 @@ const Navbar = () => {
                     <Link to='/products'><li>Products</li></Link>
                     <Link to='/campaigns'><li>Campaigns</li></Link>
                     <Link to='/about'><li>About</li></Link>
-                    <Link to='/login'><button className='bg-red-500 text-white px-4 py-1 rounded-md'>Login</button></Link>
-                    
-                </ul>
-            </nav>
-            <Link to='/cart' className='relative w-10'>
+                    <Link to='/cart' className='relative w-10'>
             <ShoppingCart/> 
             <div className='bg-red-500 w-5 absolute -top-2 right-1 flex items-center justify-center rounded-full text-white'></div>
             </Link>
-            {/* mobile hamburger icon */}
+                    
+                    
+                </ul>
+            </nav>
+           {
+            (token) ?
+            <Link to='/profile'><button className='bg-red-500 text-white px-4 py-1 rounded-md'><FaPersonBooth/></button></Link>
+            :<Link to='/login'><button className='bg-red-500 text-white px-4 py-1 rounded-md'>Login</button></Link>
+            
+           }   {/* mobile hamburger icon */}
             {showMenu ? (
               <HiMenuAlt1 onClick={toggleMenu} className='cursor-pointer transition-all md:hidden' size={30}/>
             ):(

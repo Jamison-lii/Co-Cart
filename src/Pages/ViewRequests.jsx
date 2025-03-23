@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useSearch } from "../Context/SearchContext";
+import { Home, List, ClipboardList, Menu, X } from "lucide-react"; // Import Lucide icons
 
 const ViewRequests = () => {
   const [activeTab, setActiveTab] = useState("approved"); // Default tab for View Requests
   const [loading, setLoading] = useState(true); // Loading state
   const [members, setMembers] = useState([]); // State to store members
   const [selectedSidebarItem, setSelectedSidebarItem] = useState("Dashboard"); // State to track selected sidebar item
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State to toggle sidebar on mobile
   const { camp } = useSearch();
   const token = localStorage.getItem("token");
   const storedProduct = localStorage.getItem("selectedProduct");
@@ -233,33 +235,57 @@ const ViewRequests = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100 ">
+    <div className="flex min-h-screen bg-gray-100">
+      {/* Sidebar Toggle Button (Mobile) */}
+      <button
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        className="fixed top-7 left-4 z-50 p-2 bg-white rounded-lg shadow-lg md:hidden"
+      >
+        {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
       {/* Sidebar */}
-      <div className="w-64 bg-white shadow-lg p-4">
+      <div
+        className={`fixed inset-y-0 left-0 w-64 bg-white shadow-lg p-4 transform transition-transform duration-200 ease-in-out ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 md:relative`}
+      >
         <h2 className="text-xl font-bold text-gray-800 mb-6 mt-28">Dashboard</h2>
         <nav>
           <button
-            onClick={() => setSelectedSidebarItem("Dashboard")}
-            className={`block w-full text-left py-2 px-4 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg ${
+            onClick={() => {
+              setSelectedSidebarItem("Dashboard");
+              setIsSidebarOpen(false); // Close sidebar on mobile after selection
+            }}
+            className={`flex items-center w-full text-left py-2 px-4 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg ${
               selectedSidebarItem === "Dashboard" ? "bg-red-50 text-red-600" : ""
             }`}
           >
+            <Home size={18} className="mr-2" />
             Dashboard
           </button>
           <button
-            onClick={() => setSelectedSidebarItem("View Requests")}
-            className={`block w-full text-left py-2 px-4 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg ${
+            onClick={() => {
+              setSelectedSidebarItem("View Requests");
+              setIsSidebarOpen(false); // Close sidebar on mobile after selection
+            }}
+            className={`flex items-center w-full text-left py-2 px-4 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg ${
               selectedSidebarItem === "View Requests" ? "bg-red-50 text-red-600" : ""
             }`}
           >
+            <List size={18} className="mr-2" />
             View Requests
           </button>
           <button
-            onClick={() => setSelectedSidebarItem("Campaigns")}
-            className={`block w-full text-left py-2 px-4 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg ${
+            onClick={() => {
+              setSelectedSidebarItem("Campaigns");
+              setIsSidebarOpen(false); // Close sidebar on mobile after selection
+            }}
+            className={`flex items-center w-full text-left py-2 px-4 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg ${
               selectedSidebarItem === "Campaigns" ? "bg-red-50 text-red-600" : ""
             }`}
           >
+            <ClipboardList size={18} className="mr-2" />
             Campaigns
           </button>
         </nav>
