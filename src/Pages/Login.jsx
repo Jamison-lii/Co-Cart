@@ -78,8 +78,8 @@ const Login = () => {
     }
 
     const url = isLogin
-      ? "https://rrn24.techchantier.site/buy-together-api/public/api/login"
-      : "https://rrn24.techchantier.site/buy-together-api/public/api/register";
+      ? "https://rrn24.techchantier.com/buy_together/public/api/login"
+      : "https://rrn24.techchantier.com/buy_together/public/api/register";
 
     try {
       const response = await fetch(url, {
@@ -93,7 +93,7 @@ const Login = () => {
       const data = await response.json();
       console.log("Response:", data);
 
-      if (response.ok && data.data.user) {
+      if (response.ok) {
         localStorage.setItem("user", JSON.stringify(data.data.user)); // Store user safely
         localStorage.setItem("token", data.data.token);
         toast.success("Success");

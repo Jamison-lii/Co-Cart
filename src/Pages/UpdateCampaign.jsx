@@ -99,7 +99,7 @@ const UpdateCampaign = () => {
 
   // Update purchase goal
   async function updatePurchaseGoal() {
-    const Url = `https://rrn24.techchantier.site/buy-together-api/public/api/purchase-goals/${selectedProduct.id}`;
+    const Url = `https://rrn24.techchantier.com/buy_together/public/api/purchase-goals/${selectedProduct.id}`;
     const token = localStorage.getItem("token");
 
     const campaignData = new FormData();

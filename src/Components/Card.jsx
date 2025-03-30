@@ -28,7 +28,7 @@ const Card = ({ prop }) => {
           </h3>
         </div>
         <p className="text-sm font-medium text-gray-900">
-          ${prop.product?.unit_price} {/* ✅ Corrected Price Reference */}
+          FCFA{prop.product?.unit_price} {/* ✅ Corrected Price Reference */}
         </p>
       </div>
     </div>

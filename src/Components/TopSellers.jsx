@@ -17,7 +17,7 @@ const TopSellers = () => {
 
   const fetchPurchaseGoals = async () => {
     const url =
-      "https://rrn24.techchantier.site/buy-together-api/public/api/purchase-goals";
+      "https://rrn24.techchantier.com/buy_together/public/api/purchase-goals";
 
     try {
       const response = await fetch(url, {

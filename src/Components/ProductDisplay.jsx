@@ -13,12 +13,9 @@ const ProductDisplay = () => {
   
 
   // Fetch user data from localStorage inside useEffect
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      setPerson(JSON.parse(user));
-    }
-  }, []); // Empty dependency array ensures this runs only once on mount
+ 
+    const user = JSON.parse(localStorage.getItem("user"));
+    // Empty dependency array ensures this runs only once on mount
 
   useEffect(() => {
     const storedProduct = localStorage.getItem("selectedProduct");
@@ -34,7 +31,7 @@ const ProductDisplay = () => {
   const fetchProductDetails = async () => {
     try {
       const response = await fetch(
-        `https://rrn24.techchantier.site/buy-together-api/public/api/purchase-goals/${id}`
+        `https://rrn24.techchantier.com/buy_together/public/api/purchase-goals/${id}`
       );
 
       if (!response.ok) {
@@ -56,7 +53,7 @@ const ProductDisplay = () => {
 
 
   const handleStatus = async () => {
-    const Url = `https://rrn24.techchantier.site/buy-together-api/public/api/purchase-goals/${campaignData.data.id}/change-status`;
+    const Url = `https://rrn24.techchantier.com/buy_together/public/api/purchase-goals/${campaignData.data.id}/change-status`;
     const token = localStorage.getItem("token");
 
     try {
@@ -108,10 +105,10 @@ const ProductDisplay = () => {
 
         <div className="flex gap-5 font-semibold items-center my-5">
           <div className="text-gray-500 text-2xl line-through">
-            ${product.product?.bulk_price}
+            FCFA{product.product?.unit_price}
           </div>
           <div className="text-red-500 text-3xl">
-            ${product.product?.unit_price}
+            FCFA{product.product?.bulk_price}
           </div>
         </div>
 
@@ -135,7 +132,7 @@ const ProductDisplay = () => {
 
 
 
-        {person.id === product.created_by.id ? (
+        {user?.id === product.created_by.id ? (
           <>
           <Link to='/viewRequests'>
             <button  className="bg-red-500 text-white px-6 py-3 my-4 w-max">

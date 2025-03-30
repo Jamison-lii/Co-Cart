@@ -72,7 +72,7 @@ const CreateCampaign = () => {
 
   async function createPurchaseGoal() {
     const Url =
-      "https://rrn24.techchantier.site/buy-together-api/public/api/purchase-goals";
+      "https://rrn24.techchantier.com/buy_together/public/api/purchase-goals";
     const token = localStorage.getItem("token");
 
     console.log("creating");
@@ -140,6 +140,8 @@ const CreateCampaign = () => {
           product_quantity: "",
           product_image: "",
         });
+
+        navigate('/');
       } else {
         setMessage(data.message || "❌ Failed to create campaign.");
         toast.error("Failed to create campaign");

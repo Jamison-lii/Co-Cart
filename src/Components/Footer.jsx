@@ -14,8 +14,8 @@ const Footer = () => {
             </Link>
             <p className='mt-2 text-sm'>Join group purchases and benefit off group discounts.</p>
             <p className='mt-2 text-sm'>Bokwai , Buea, Cameroon</p>
-            <p className='text-sm'>Email: support@clothify.com</p> 
-            <p className='text-sm'>Phone: (123) 456-7890</p> 
+            <p className='text-sm'>Email: ntuvlii5@gmail.com</p> 
+            <p className='text-sm'>Phone: +237 695-425-977</p> 
         </div>
         {/* customer service link */}
         <div className='mb-6 md:mb-0'>

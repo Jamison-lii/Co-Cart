@@ -31,11 +31,13 @@ const DetailsCard = (props) => {
         <p>(122)</p>
       </div>
       <div className='flex gap-5 font-semibold items-center my-5'>
-        <div className='text-gray-500 text-2xl line-through'>${product.bulk_price}</div>
-        <div className='text-red-500 text-3xl'>${product.unit_price}</div>
+        <div className='text-gray-500 text-2xl line-through'>FCFA {product.unit_price}</div>
+        <div className='text-red-500 text-3xl'>FCFA {product.bulk_price}</div>
       </div>
 
-      <div className=''>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam dolore voluptatem nesciunt facere totam suscipit illum laboriosam nulla, corporis amet consequuntur, fugiat modi voluptate libero</div>
+      <div className=''>Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+        Quisquam dolore voluptatem nesciunt facere totam suscipit illum laboriosam nulla,
+         corporis amet consequuntur, fugiat modi voluptate libero</div>
       <div>
         <h1 className='font-semibold text-gray-400 text-2xl mt-4'>Select Size</h1>
         <div className='flex gap-4 items-center my-4'>

@@ -16,7 +16,7 @@ const Campaigns = () => {
 
   // Fetch all campaigns
   const fetchPurchaseGoal = async () => {
-    const url = `https://rrn24.techchantier.site/buy-together-api/public/api/purchase-goals`;
+    const url = `https://rrn24.techchantier.com/buy_together/public/api/purchase-goals`;
 
     try {
       const response = await fetch(url, {
@@ -43,7 +43,7 @@ const Campaigns = () => {
 
   // Handle campaign deletion
   const handleDelete = async () => {
-    const Url = `https://rrn24.techchantier.site/buy-together-api/public/api/purchase-goals/${camp.id}`;
+    const Url = `https://rrn24.techchantier.com/buy_together/public/api/purchase-goals/${camp.id}`;
     const token = localStorage.getItem("token");
 
     try {
