@@ -1,63 +1,68 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Logo from '../assets/logo1.png'
-import { FaFacebook, FaInstagram, FaPinterest, FaTwitterSquare } from 'react-icons/fa'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Logo from '../assets/logo1.png';
+import { FaFacebook, FaInstagram, FaPinterest, FaTwitterSquare } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className='bg-gray-900 text-gray-200 py-10'>
-      <div className='max-w-7xl mx-auto px-4 md:flex md:justify-between'>
-        {/*  info */}
-        <div className='mb-6 md:mb-0'>
-            <Link to='/'>
-              <img src={Logo} alt="" className='w-27'/>
-            </Link>
-            <p className='mt-2 text-sm'>Join group purchases and benefit off group discounts.</p>
-            <p className='mt-2 text-sm'>Bokwai , Buea, Cameroon</p>
-            <p className='text-sm'>Email: ntuvlii5@gmail.com</p> 
-            <p className='text-sm'>Phone: +237 695-425-977</p> 
-        </div>
-        {/* customer service link */}
-        <div className='mb-6 md:mb-0'>
-            <h3 className='text-xl font-semibold'>Customer Service</h3>
-            <ul className='mt-2 text-sm space-y-2'>
-                <li>Contact Us</li>
-                <li>Shipping & Returns</li>
-                <li>FAQs</li>
-                <li>Order Tracking</li>
-                <li>Size Guide</li>
-            </ul>
-        </div>
-        {/* social media links */}
-        <div className='mb-6 md:mb-0'>
-            <h3 className='text-xl font-semibold'>Follow Us</h3>
-            <div className='flex space-x-4 mt-2'>
-                <FaFacebook/>
-                <FaInstagram/>
-                <FaTwitterSquare/>
-                <FaPinterest/>
-            </div>
-        </div>
-        {/* newsletter subscription */}
+    <footer className="bg-gray-900 text-gray-300 py-12">
+      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
+        {/* Info Section */}
         <div>
-            <h3 className='text-xl font-semibold'>Stay in the Loop</h3>
-            <p className='mt-2 text-sm'>Subscribe to get special offers, free giveaways, and more</p>
-            <form action="" className='mt-4 flex'>
-                <input 
-                type="email" 
-                placeholder='Your email address'
-                className='w-full p-2 rounded-l-md bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500'
-                />
-                <button type='submit' className='bg-red-600 text-white px-4 rounded-r-md hover:bg-red-700'>Subscribe</button>
-            </form>
+          <Link to="/">
+            <img src={Logo} alt="Co-Cart Logo" className="w-32" />
+          </Link>
+          <p className="mt-4 text-sm">Join group purchases and benefit from exclusive discounts.</p>
+          <p className="mt-2 text-sm">📍 Bokwai, Buea, Cameroon</p>
+          <p className="text-sm">✉️ Email: <a href="mailto:ntuvlii5@gmail.com" className="hover:text-red-400">ntuvlii5@gmail.com</a></p>
+          <p className="text-sm">📞 Phone: <a href="tel:+237695425977" className="hover:text-red-400">+237 695-425-977</a></p>
+        </div>
+
+        {/* Customer Service Links */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-3">Customer Service</h3>
+          <ul className="space-y-2 text-sm">
+            {["Contact Us", "Shipping & Returns", "FAQs", "Order Tracking", "Size Guide"].map((item, index) => (
+              <li key={index} className="hover:text-red-400 cursor-pointer transition duration-200">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Social Media Links */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-3">Follow Us</h3>
+          <div className="flex space-x-4 mt-2 text-xl">
+            {[FaFacebook, FaInstagram, FaTwitterSquare, FaPinterest].map((Icon, index) => (
+              <Icon key={index} className="hover:text-red-400 transition duration-300 cursor-pointer" />
+            ))}
+          </div>
+        </div>
+
+        {/* Newsletter Subscription */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-3">Stay in the Loop</h3>
+          <p className="text-sm">Subscribe for special offers, free giveaways, and updates.</p>
+          <form className="mt-4 flex">
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="w-full p-2 rounded-l-md bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500"
+            />
+            <button type="submit" className="bg-red-600 text-white px-4 rounded-r-md hover:bg-red-700 transition">
+              Subscribe
+            </button>
+          </form>
         </div>
       </div>
-      {/* bottom section */}
-      <div className='mt-8 border-t border-gray-700 pt-6 text-center text-sm'>
-        <p>&copy; {new Date().getFullYear()}<span className='text-red-500'>  Co-Cart </span>.All rights reserved</p>
+
+      {/* Bottom Section */}
+      <div className="mt-10 border-t border-gray-700 pt-6 text-center text-sm">
+        <p>&copy; {new Date().getFullYear()} <span className="text-red-500">Co-Cart</span>. All rights reserved.</p>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
