@@ -1,12 +1,65 @@
 import React from 'react';
 import { X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState,useEffect } from 'react';
+
 
 const Cart = () => {
+    
+  const navigate = useNavigate();
+  const [purchaseGoals, setPurchaseGoals] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const user  = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+      fetchMyGoals();
+
+    }, []);
+
+  const fetchMyGoals = async () => {
+    const url = `https://rrn24.techchantier.com/buy_together/public/api/${user.id}/purchase-goals`;
+    
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: { 
+        Accept: "application/json" ,
+         Authorization: `Bearer ${token}`,
+        },
+        
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (Array.isArray(data.data)) {
+        setPurchaseGoals(data.data);
+      } else {
+        throw new Error("Unexpected data format");
+      }
+    } catch (error) {
+      setError("❌ Failed to load purchase goals.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) return <p>Loading purchase goals...</p>;
+  if (error) return <p>{error}</p>;
+  
+ 
+
+
   return (
     <div className='mt-32'>
       <div className='max-w-7xl mx-auto my-10 p-4'>
         <div>
+          {console.log("user", user)}
           <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-[0.5fr,2fr,1fr,1fr,1fr,1fr] items-center px-4'>
             <p>Products</p>
             <p>Title</p>

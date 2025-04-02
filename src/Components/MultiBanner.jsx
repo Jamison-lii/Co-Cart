@@ -1,4 +1,7 @@
 import React from 'react'
+import controller  from '../assets/PS4.jpg'
+import girl from '../assets/girl.jpg'
+import together from '../assets/together.jpg'
 
 const MultiBanner = () => {
     return (
@@ -11,7 +14,7 @@ const MultiBanner = () => {
                     alt="New Arrivals" 
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
-                    <div className='absolute inset-0 bg-gray-800 rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
+                    <div className='absolute inset-0  rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
                         <h2 className='text-white text-2xl font-bold'>New Campaigns</h2>
                         <button className='mt-2 px-3 py-1 bg-white text-green-800 rounded-md shadow hover:bg-gray-200'>Discover</button>
                     </div>
@@ -19,22 +22,22 @@ const MultiBanner = () => {
                 {/* second banner */}
                 <div className='relative h-[250px]'>
                     <img 
-                    src="https://images.pexels.com/photos/5650023/pexels-photo-5650023.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                    src={controller} 
                     alt="New Arrivals" 
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
-                    <div className='absolute inset-0 bg-blue-900 rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
+                    <div className='absolute inset-0 rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
                         <h2 className='text-white text-2xl font-bold'>Ending soon</h2>
                     </div>
                 </div>
                 {/* third banner */}
                 <div className='relative h-[250px] col-span-1 sm:col-span-2'>
                     <img 
-                    src="https://images.pexels.com/photos/7679720/pexels-photo-7679720.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                    src={together} 
                     alt="season sale" 
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
-                    <div className='absolute inset-0 bg-yellow-800 bg-opacity-50 flex flex-col items-center rounded-lg justify-center'>
+                    <div className='absolute inset-0  bg-opacity-50 flex flex-col items-center rounded-lg justify-center'>
                         <h2 className='text-white text-4xl font-bold'>Products</h2>
                         <p className='text-white my-2 text-lg'>Up to 70% Off</p>
                         <button className='text-white bg-yellow-600 px-3 py-2 hover:bg-yellow-500 rounded-md'>Shop Now</button>
@@ -46,7 +49,7 @@ const MultiBanner = () => {
                     src="https://images.pexels.com/photos/325876/pexels-photo-325876.jpeg?auto=compress&cs=tinysrgb&w=600" alt="season sale" 
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
-                    <div className='absolute inset-0 bg-orange-800 bg-opacity-50 flex flex-col items-center rounded-lg justify-center'>
+                    <div className='absolute inset-0  bg-opacity-50 flex flex-col items-center rounded-lg justify-center'>
                         <h2 className='text-white text-4xl font-bold'>Popular</h2>
                         <p className='text-white my-2 text-lg'>Populated Campaigns</p>
                         <button className='text-white bg-red-500 px-3 py-2 hover:bg-red-600 rounded-md'>Shop Now</button>
@@ -55,11 +58,11 @@ const MultiBanner = () => {
                 {/* fifth banner */}
                 <div className='relative h-[250px]'>
                     <img 
-                    src="https://images.pexels.com/photos/5622859/pexels-photo-5622859.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                    src={girl} 
                     alt="New Arrivals" 
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
-                    <div className='absolute inset-0 bg-blue-900 rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
+                    <div className='absolute inset-0  rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
                         <h2 className='text-white text-2xl font-bold'>Ending soon</h2>
                     </div>
                 </div>
@@ -70,7 +73,7 @@ const MultiBanner = () => {
                     alt="New Arrivals" 
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
-                    <div className='absolute inset-0 bg-gray-800 rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
+                    <div className='absolute inset-0 rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
                         <h2 className='text-white text-2xl font-bold'>New Arrivals</h2>
                         <button className='mt-2 px-3 py-1 bg-white text-green-800 rounded-md shadow hover:bg-gray-200'>Discover</button>
                     </div>

@@ -13,9 +13,11 @@ import Login from './Pages/Login'
 import Campaigns from './Pages/Campaigns'
 import CreateCampaign from './Pages/CreateCampaigns'
 import ViewRequests from './Pages/ViewRequests'
-import Product from './Pages/Products'
+//import Product from './Pages/Products'
 import UpdateCampaign from './Pages/UpdateCampaign'
 import Profile from './Pages/Profile'
+import ProductPage from './Pages/Products'
+import CreateProductCampaign from './Pages/ProductCreateCampaignPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -33,11 +35,12 @@ function App() {
            <Route path='/cart' element={<Cart/>} />
            <Route path='/login' element={<Login/>} />
            <Route path='/campaigns' element={<Campaigns/>} />
-           <Route path='/products' element={<Product/>} />
+           <Route path='/products' element={<ProductPage/>} />
            <Route path='/createCampaign' element={<CreateCampaign/>} />
            <Route path='/viewRequests' element={<ViewRequests/>} />
            <Route path='/updateCampaign' element={<UpdateCampaign/>} />
            <Route path='/profile' element={<Profile/>} />
+           <Route path='/createprodcamp' element={<CreateProductCampaign/>}/>
          </Routes>
          </SearchProvider>
       <Footer/> 
