@@ -97,7 +97,10 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data.data.user)); // Store user safely
         localStorage.setItem("token", data.data.token);
         toast.success("Success");
-        navigate("/"); // Redirect to Home Page after login
+        navigate("/");
+        if(url = "https://rrn24.techchantier.com/buy_together/public/api/register"){
+          navigate("/");
+        } // Redirect to Home Page after login
       } else {
         setError(data.message || "Login failed");
         toast.error("Failed");
