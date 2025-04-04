@@ -1,16 +1,29 @@
-import React from 'react';
-import banner from '../assets/shopping.jpg'; // Ensure the path is correct
+import React, { useEffect, useState } from 'react';
+import banner from '../assets/HERO1.jpeg'; 
 import { useNavigate } from 'react-router-dom';
 
 const HeroBanner = () => {
   const navigate = useNavigate();
+  const [token, setToken] = useState(null); // ✅ Store token in state
+
+  useEffect(() => {
+    setToken(localStorage.getItem("token")); // ✅ Retrieve token correctly
+  }, []);
+
+  const handleOnClick = () => {
+    if (!token) {
+      navigate('/login');
+    } else {
+      navigate('/createCampaign');
+    }
+  };
 
   return (
     <div className="bg-gray-100 lg:pt-24 pt-16 mt-13">
       <div
         className="relative max-w-7xl mx-auto md:rounded-2xl h-[550px] md:h-[600px] flex items-center justify-center"
         style={{
-          backgroundImage: `url(${banner})`, // ✅ Corrected background image reference
+          backgroundImage: `url(${banner})`, 
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -25,7 +38,7 @@ const HeroBanner = () => {
               Establish your own Buying Campaign, buy together, save money
             </p>
             <button
-              onClick={() => navigate('/createCampaign')}
+              onClick={handleOnClick} // ✅ No need for an extra arrow function
               className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 md:py-3 md:px-6 rounded-lg transition duration-300"
             >
               Create a Campaign

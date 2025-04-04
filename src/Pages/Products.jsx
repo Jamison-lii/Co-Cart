@@ -33,6 +33,33 @@ const products = [
     quantity: 5,
     image: `${iphone}`
   },
+  {
+    id: 4,
+    name: "Palm Oil - 5L",
+    description: "Pure red palm oil, straight from local Cameroonian farms.",
+    unit_price: "4000",
+    bulk_price: "3500",
+    quantity: 20,
+    image: "https://example.com/palm-oil.jpg",
+  },
+  {
+    id: 5,
+    name: "Cameroon Traditional Dress",
+    description: "Beautiful Toghu outfit for special occasions.",
+    unit_price: "50000",
+    bulk_price: "45000",
+    quantity: 8,
+    image: "https://example.com/toghu-dress.jpg",
+  },
+  {
+    id: 6,
+    name: "Locally-made Sandals",
+    description: "Comfortable handcrafted leather sandals.",
+    unit_price: "12000",
+    bulk_price: "10000",
+    quantity: 15,
+    image: "https://example.com/cameroon-sandals.jpg",
+  },
 ];
 
 const ProductCard = ({ product, onSelect }) => {
@@ -61,6 +88,7 @@ const ProductCard = ({ product, onSelect }) => {
 
 const ProductPage = () => {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleOnClick = (product) => {
     console.log("Selected Product:", product);
@@ -68,15 +96,36 @@ const ProductPage = () => {
     navigate("/createprodcamp");
   };
 
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 mt-20">
       <h1 className="text-3xl font-bold text-gray-900 text-center mb-8">
         Group Buy Products in Cameroon
       </h1>
+
+      {/* Search Bar */}
+      <div className="mb-6 flex justify-center">
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full max-w-lg p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+        />
+      </div>
+
+      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} onSelect={handleOnClick} />
-        ))}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} onSelect={handleOnClick} />
+          ))
+        ) : (
+          <p className="text-center text-gray-600 col-span-full">No products found.</p>
+        )}
       </div>
     </div>
   );
