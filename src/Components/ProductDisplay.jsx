@@ -1,29 +1,34 @@
 import { Star } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
-
 const ProductDisplay = () => {
-  const { id } = useParams(); // Get the product ID from the URL
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [person, setPerson] = useState(null);
-  
-
-  // Fetch user data from localStorage inside useEffect
- 
-    const user = JSON.parse(localStorage.getItem("user"));
-    // Empty dependency array ensures this runs only once on mount
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedProduct = localStorage.getItem("selectedProduct");
+    // Get user data from localStorage
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+      }
+    }
 
-    if (storedProduct) {
-      setProduct(JSON.parse(storedProduct));
+    // First try to get from localStorage
+    const storedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+    if (storedProduct && storedProduct.id == id) {
+      setProduct(storedProduct);
       setLoading(false);
     } else {
+      // Fallback to API if not in localStorage
       fetchProductDetails();
     }
   }, [id]);
@@ -40,20 +45,20 @@ const ProductDisplay = () => {
 
       const data = await response.json();
       setProduct(data);
-      localStorage.setItem("selectedProduct", JSON.stringify(data)); // Store in localStorage
+      localStorage.setItem("selectedProduct", JSON.stringify(data));
     } catch (error) {
       setError("Error fetching product details");
+      toast.error("Failed to load product details");
+      navigate("/campaigns");
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) return <p>Loading product details...</p>;
-  if (error) return <p>{error}</p>;
-
-
   const handleStatus = async () => {
-    const Url = `https://rrn24.techchantier.com/buy_together/public/api/purchase-goals/${campaignData.data.id}/change-status`;
+    if (!product) return;
+    
+    const Url = `https://rrn24.techchantier.com/buy_together/public/api/purchase-goals/${product.id}/change-status`;
     const token = localStorage.getItem("token");
 
     try {
@@ -68,20 +73,92 @@ const ProductDisplay = () => {
       const data = await response.json();
       if (response.ok) {
         toast.success("Status changed successfully");
+        const updatedProduct = {
+          ...product,
+          status: product.status === "open" ? "closed" : "open"
+        };
+        setProduct(updatedProduct);
+        localStorage.setItem("selectedProduct", JSON.stringify(updatedProduct));
       } else {
-        toast.error("Error on changing campaign status");
+        toast.error(data.message || "Error changing campaign status");
       }
     } catch (error) {
       console.error("Error:", error);
+      toast.error("Failed to change status");
     }
   };
 
+  const handleJoinCampaign = async () => {
+    if (!product) return;
+    
+    const token = localStorage.getItem("token");
+    const today = new Date();
+    const endDate = new Date(product.end_date);
 
+    if (today > endDate) {
+      toast.error("Sorry, this campaign has ended");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://rrn24.techchantier.com/buy_together/public/api/purchase-goals/${product.id}/join`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        toast.success("Successfully joined the campaign!");
+        // Store the product and navigate to cart
+        localStorage.setItem("selectedProduct", JSON.stringify(product));
+        navigate("/cart");
+      } else {
+        toast.error(data.message || "Failed to join campaign");
+      }
+    } catch (error) {
+      console.error("Error joining campaign:", error);
+      toast.error("Failed to join campaign");
+    }
+  };
+
+  if (loading) return (
+    <div className="flex justify-center items-center h-64">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
+    </div>
+  );
+
+  if (error) return (
+    <div className="text-center py-20 text-red-500">
+      <p>{error}</p>
+      <button 
+        onClick={() => navigate("/campaigns")}
+        className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md"
+      >
+        Back to Campaigns
+      </button>
+    </div>
+  );
+
+  if (!product) return (
+    <div className="text-center py-20">
+      <p>Product not found</p>
+      <button 
+        onClick={() => navigate("/campaigns")}
+        className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md"
+      >
+        Back to Campaigns
+      </button>
+    </div>
+  );
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 my-20 md:gap-10 px-6 md:px-0">
-      {console.log("person:", person)}
-      {console.log("product", product)}
       {/* Large Product Image */}
       <div className="flex justify-center">
         <img
@@ -112,9 +189,8 @@ const ProductDisplay = () => {
           </div>
         </div>
 
-        <div className="">
-          {product.description ||
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam dolore voluptatem nesciunt facere totam suscipit illum laboriosam nulla, corporis amet consequuntur, fugiat modi voluptate libero"}
+        <div className="text-gray-700">
+          {product.description}
         </div>
 
         <div>
@@ -122,55 +198,47 @@ const ProductDisplay = () => {
             Select Size
           </h1>
           <div className="flex gap-4 items-center my-4">
-            <div className="border bg-gray-100 p-4">S</div>
-            <div className="border bg-gray-100 p-4">M</div>
-            <div className="border bg-gray-100 p-4">L</div>
-            <div className="border bg-gray-100 p-4">XL</div>
-            <div className="border bg-gray-100 p-4">XXL</div>
+            {['S', 'M', 'L', 'XL', 'XXL'].map(size => (
+              <div key={size} className="border bg-gray-100 p-4 hover:bg-gray-200 cursor-pointer">
+                {size}
+              </div>
+            ))}
           </div>
         </div>
 
-
-
-        {user?.id === product.created_by.id ? (
+        {user?.id === product.created_by?.id ? (
           <>
-          <Link to='/viewRequests'>
-            <button  className="bg-red-500 text-white px-6 py-3 my-4 w-max">
-              View Requests
-            </button>
+            <Link to='/viewRequests'>
+              <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 my-4 w-max transition-colors">
+                View Requests
+              </button>
             </Link>
-            {product.status === "open" ? (
-              <button onClick={handleStatus} className="bg-red-500 text-white px-6 py-3 my-4 w-max">
-                Close Campaign
-              </button>
-            ) : (
-              <button onClick={handleStatus} className="bg-red-500 text-white px-6 py-3 my-4 w-max">
-                Open Campaign
-              </button>
-            )}
+            <button 
+              onClick={handleStatus} 
+              className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 my-4 w-max transition-colors"
+            >
+              {product.status === "open" ? "Close Campaign" : "Open Campaign"}
+            </button>
           </>
         ) : (
-          <Link to="/cart">
-          <button className="bg-red-500 text-white px-6 py-3 my-4 w-max">
+          <button
+            onClick={handleJoinCampaign}
+            className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 my-4 w-max transition-colors"
+          >
             JOIN CAMPAIGN
           </button>
-        </Link>
         )}
 
-
-
-
-
-       
-        <p>
-          <span className="font-semibold">Category:</span> Women, T-shirt, Crop
-          top
-        </p>
-        <p>
-          <span className="font-semibold">Tags:</span> Modern, Latest
-        </p>
+        <div className="mt-4">
+          <p className="text-gray-700">
+            <span className="font-semibold">Category:</span> Women, T-shirt, Crop top
+          </p>
+          <p className="text-gray-700">
+            <span className="font-semibold">Tags:</span> Modern, Latest
+          </p>
+        </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer position="bottom-right" autoClose={3000} />
     </div>
   );
 };

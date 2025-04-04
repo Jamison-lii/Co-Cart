@@ -103,6 +103,7 @@ const Campaigns = () => {
                 onClick={() => {
                   setCamp(product);
                   navigate(`/campaign/${product.id}`);
+                  localStorage.setItem("selectedProduct",JSON.stringify(product));
                 }}
               >
                 <Card prop={product} />
@@ -120,6 +121,8 @@ const Campaigns = () => {
                     onClick={() => {
                       setCamp(product);
                       navigate(`/campaign/${product.id}`);
+                      localStorage.setItem("selectedProduct",JSON.stringify(product));
+                      localStorage.setItem("storedProduct",JSON.stringify(product));
                     }}
                   >
                     <Card prop={product} />

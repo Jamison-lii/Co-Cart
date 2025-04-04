@@ -1,34 +1,31 @@
 import React from 'react';
-import { X } from 'lucide-react';
+import { ShoppingCart, Calendar, Users, DollarSign, ChevronRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState,useEffect } from 'react';
-
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
-    
   const navigate = useNavigate();
   const [purchaseGoals, setPurchaseGoals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const user  = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-      fetchMyGoals();
-
-    }, []);
+    fetchMyGoals();
+  }, []);
 
   const fetchMyGoals = async () => {
-    const url = `https://rrn24.techchantier.com/buy_together/public/api/${user.id}/purchase-goals`;
+    const url = `https://rrn24.techchantier.com/buy_together/public/api/user/purchase-goals`;
     
     try {
       const response = await fetch(url, {
         method: "GET",
         headers: { 
-        Accept: "application/json" ,
-         Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        
       });
 
       if (!response.ok) {
@@ -36,82 +33,145 @@ const Cart = () => {
       }
 
       const data = await response.json();
-
       if (Array.isArray(data.data)) {
         setPurchaseGoals(data.data);
       } else {
         throw new Error("Unexpected data format");
       }
     } catch (error) {
-      setError("❌ Failed to load purchase goals.");
+      setError("Failed to load purchase goals");
+      toast.error("Failed to load your campaigns");
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) return <p>Loading purchase goals...</p>;
-  if (error) return <p>{error}</p>;
-  
- 
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric'
+    });
+  };
 
+  if (loading) return (
+    <div className="flex justify-center items-center h-64">
+      <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-red-500"></div>
+    </div>
+  );
+
+  if (error) return (
+    <div className="text-center py-20 text-gray-600">
+      <p>{error}</p>
+      <button 
+        onClick={fetchMyGoals}
+        className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md text-sm"
+      >
+        Try Again
+      </button>
+    </div>
+  );
 
   return (
-    <div className='mt-32'>
-      <div className='max-w-7xl mx-auto my-10 p-4'>
-        <div>
-          {console.log("user", user)}
-          <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-[0.5fr,2fr,1fr,1fr,1fr,1fr] items-center px-4'>
-            <p>Products</p>
-            <p>Title</p>
-            <p className='hidden md:block'>Price</p>
-            <p className='hidden md:block'>Quantity</p>
-            <p className='hidden md:block'>Total</p>
-            <p className='hidden md:block'>Remove</p>
-          </div>
-          <hr className='bg-gray-300 border-0 h-[2px] my-2' />
-          <div>
-            <div className='text-gray-500 font-semibold text-sm sm:text-base grid grid-cols-2 sm:grid-cols-3 md:grid-cols-[0.5fr,2fr,1fr,1fr,1fr,1fr] items-center px-4 gap-2'>
-              <img src="../assets/logo1.png" className='h-16 w-16 object-cover' alt="product" />
-              <p>Product Name</p>
-              <p className='hidden md:block'>$50.00</p>
-              <button className='w-16 h-12 bg-white border border-gray-300'>1</button>
-              <p className='hidden md:block'>$50.00</p>
-              <X className='cursor-pointer' />
-            </div>
-            <hr className='bg-gray-300 border-0 h-[2px] my-2' />
-          </div>
-          <div className='flex flex-col lg:flex-row my-12 gap-10 md:gap-32'>
-            <div className='flex-1 flex flex-col gap-4'>
-              <h1 className='text-lg font-bold'>Cart Totals</h1>
-              <div>
-                <div className='flex justify-between py-2'>
-                  <p>Subtotal</p>
-                  <p>$50.00</p>
-                </div>
-                <hr className='bg-gray-300 border-0 h-[2px] mt-2' />
-                <div className='flex justify-between py-2'>
-                  <p>Shipping Fee</p>
-                  <p>Free</p>
-                </div>
-                <hr className='bg-gray-300 border-0 h-[2px] my-2' />
-                <div className='flex justify-between text-xl font-semibold py-2'>
-                  <h3>Total</h3>
-                  <h3>$50.00</h3>
-                </div>
-              </div>
-              <Link to='/login'>
-                <button className='w-full lg:w-64 h-14 bg-red-500 text-white font-semibold text-lg'>PROCEED TO CHECKOUT</button>
+    <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-2xl font-semibold text-gray-900">Your Campaigns</h1>
+          <p className="text-gray-500 mt-1">
+            {purchaseGoals.length} {purchaseGoals.length === 1 ? 'campaign' : 'campaigns'}
+          </p>
+        </div>
+
+        {purchaseGoals.length === 0 ? (
+          <div className="text-center py-16 border border-gray-200 rounded-lg">
+            <ShoppingCart className="mx-auto h-10 w-10 text-gray-400" />
+            <h3 className="mt-4 text-lg font-medium text-gray-900">No campaigns yet</h3>
+            <p className="mt-1 text-gray-500">
+              Join a campaign to see it here
+            </p>
+            <div className="mt-6">
+              <Link
+                to="/campaigns"
+                className="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-white bg-red-500 hover:bg-red-600"
+              >
+                Browse Campaigns
               </Link>
             </div>
-            <div className='flex-1 w-full text-lg font-semibold'>
-              <p className='text-gray-600'>If you have a promo code, enter it here:</p>
-              <div className='w-full lg:w-80 mt-2 flex'>
-                <input type="text" placeholder='Promo Code' className='flex-1 h-14 p-2 bg-gray-200' />
-                <button className='h-14 w-32 bg-black text-white'>Submit</button>
-              </div>
-            </div>
           </div>
-        </div>
+        ) : (
+          <div className="space-y-4">
+            {purchaseGoals.map((campaign) => (
+              <div 
+                key={campaign.id} 
+                className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-sm transition-shadow"
+              >
+                <div className="p-4 flex items-start">
+                  <div className="flex-shrink-0 h-16 w-16 overflow-hidden rounded-md">
+                    <img
+                      src={campaign.product.image}
+                      alt={campaign.product.name}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  
+                  <div className="ml-4 flex-1">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-base font-medium text-gray-900">
+                        {campaign.title}
+                      </h3>
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        campaign.status === 'open' 
+                          ? 'bg-green-50 text-green-700' 
+                          : 'bg-gray-50 text-gray-700'
+                      }`}>
+                        {campaign.status}
+                      </span>
+                    </div>
+                    
+                    <p className="mt-1 text-sm text-gray-500 line-clamp-1">
+                      {campaign.description}
+                    </p>
+                    
+                    <div className="mt-3 flex items-center text-xs text-gray-500 space-x-4">
+                      <div className="flex items-center">
+                        <DollarSign className="h-3 w-3 mr-1 text-red-500" />
+                        <span>FCFA {campaign.product.bulk_price}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Users className="h-3 w-3 mr-1 text-red-500" />
+                        <span>{campaign.amount_per_person ? `FCFA ${campaign.amount_per_person}/person` : 'Flexible'}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Calendar className="h-3 w-3 mr-1 text-red-500" />
+                        <span>Ends {formatDate(campaign.end_date)}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <button 
+                    onClick={() => {
+                      localStorage.setItem("selectedProduct", JSON.stringify(campaign));
+                      navigate(`/campaign/${campaign.id}`);
+                    }}
+                    className="ml-2 text-gray-400 hover:text-gray-500"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
+                
+                <div className="border-t border-gray-200 bg-gray-50 px-4 py-2">
+                  <a
+                    href={campaign.group_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-medium text-red-500 hover:text-red-600"
+                  >
+                    Join group chat →
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

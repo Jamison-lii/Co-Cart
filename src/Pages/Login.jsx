@@ -97,7 +97,10 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data.data.user));
         localStorage.setItem("token", data.data.token);
         toast.success("Success");
-        navigate("/"); // Navigate to root for both login and register
+        if(url == isLogin)
+          {navigate("/"); }
+        else{
+          navigate("/login")}// Navigate to root for both login and register
       } else {
         setError(data.message || "Login failed");
         toast.error("Failed");
