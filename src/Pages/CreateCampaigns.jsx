@@ -5,6 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 
 const CreateCampaign = () => {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log("user",user);
   const { selectedProd } = useSearch();
 
   const [formData, setFormData] = useState({

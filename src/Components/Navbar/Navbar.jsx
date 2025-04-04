@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from '../../assets/logo1.png';
 import { ShoppingCart, User } from 'lucide-react';
@@ -7,12 +7,53 @@ import ResponsiveMenu from './ResponsiveMenu';
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const location = useLocation(); // Get current route
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const location = useLocation();
 
-  // Safely get user data from localStorage
-  const token = localStorage.getItem("token");
-  const storedUser = localStorage.getItem("user");
-  const user = storedUser ? JSON.parse(storedUser) : null; 
+  // Safely get and check auth status
+  const checkAuthStatus = () => {
+    try {
+      const token = localStorage.getItem("token");
+      const userString = localStorage.getItem("user");
+      
+      if (!token || !userString) {
+        setIsAuthenticated(false);
+        return false;
+      }
+
+      const user = JSON.parse(userString);
+      setIsAuthenticated(!!user && !!token);
+      return !!user && !!token;
+    } catch (error) {
+      console.error("Auth check error:", error);
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      setIsAuthenticated(false);
+      return false;
+    }
+  };
+
+  // Listen for storage changes (auth updates from other tabs)
+  useEffect(() => {
+    const handleStorageChange = () => {
+      checkAuthStatus();
+    };
+
+    // Initial check
+    checkAuthStatus();
+
+    // Set up event listener
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  // Also check auth when route changes
+  useEffect(() => {
+    checkAuthStatus();
+  }, [location]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -56,7 +97,7 @@ const Navbar = () => {
           </nav>
 
           {/* Profile or Login Button */}
-          {user && Object.keys(user).length > 0 ? (
+          {isAuthenticated ? (
             <Link to="/profile">
               <button className="bg-black text-white p-2 rounded-md">
                 <User size={32} />
@@ -78,7 +119,11 @@ const Navbar = () => {
       </div>
 
       {/* Responsive Menu Component */}
-      <ResponsiveMenu showMenu={showMenu} setShowMenu={setShowMenu} />
+      <ResponsiveMenu 
+        showMenu={showMenu} 
+        setShowMenu={setShowMenu} 
+        isAuthenticated={isAuthenticated}
+      />
     </div>
   );
 };
