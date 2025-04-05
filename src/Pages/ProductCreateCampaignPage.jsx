@@ -155,7 +155,7 @@ const CreateProductCampaign = () => {
   return (
     <div className="flex items-center justify-center mt-10 min-h-screen bg-gray-100 px-6 md:px-0">
       <div className="w-full max-w-2xl p-8 space-y-6 bg-white shadow-lg rounded-xl">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Update Campaign</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800">Create a Campaign</h2>
         {message && <p className="text-sm text-center text-red-500">{message}</p>}
         {selectedProduct?.image && (
           <div className="flex justify-center">
