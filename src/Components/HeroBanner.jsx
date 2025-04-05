@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import banner from '../assets/HERO1.jpeg'; 
+import banner from '../assets/newHero.jpeg'; 
 import { useNavigate } from 'react-router-dom';
 
 const HeroBanner = () => {
