@@ -18,6 +18,7 @@ import UpdateCampaign from './Pages/UpdateCampaign'
 import Profile from './Pages/Profile'
 import ProductPage from './Pages/Products'
 import CreateProductCampaign from './Pages/ProductCreateCampaignPage'
+import AboutPage from './Pages/About'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -43,6 +44,7 @@ function App() {
            <Route path='/updateCampaign' element={<UpdateCampaign/>} />
            <Route path='/profile' element={<Profile/>} />
            <Route path='/createprodcamp' element={<CreateProductCampaign/>}/>
+           <Route path='/about' element={<AboutPage/>}/>
          </Routes>
          </SearchProvider>
       <Footer/> 
