@@ -2,8 +2,12 @@ import React from 'react'
 import controller  from '../assets/PS4.jpg'
 import girl from '../assets/girl.jpg'
 import together from '../assets/together.jpg'
+import { Link } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const MultiBanner = () => {
+
+    const navigate = useNavigate()
     return (
         <div className='bg-gray-100'>
             <div className='grid grid-cols-1 px-4 md:px-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-6 max-w-7xl mx-auto'>
@@ -16,7 +20,7 @@ const MultiBanner = () => {
                     />
                     <div className='absolute inset-0  rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
                         <h2 className='text-white text-2xl font-bold'>New Campaigns</h2>
-                        <button className='mt-2 px-3 py-1 bg-white text-green-800 rounded-md shadow hover:bg-gray-200'>Discover</button>
+                       <button onClick={()=>{navigate('/campaigns')}} className='mt-2 px-3 py-1 bg-white text-green-800 rounded-md shadow hover:bg-gray-200'>Discover</button>
                     </div>
                 </div>
                 {/* second banner */}
@@ -27,7 +31,7 @@ const MultiBanner = () => {
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
                     <div className='absolute inset-0 rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
-                        <h2 className='text-white text-2xl font-bold'>Ending soon</h2>
+                        <h2 onClick={()=>{navigate('/campaigns')}} className='text-white text-2xl font-bold'>Ending soon</h2>
                     </div>
                 </div>
                 {/* third banner */}
@@ -40,7 +44,7 @@ const MultiBanner = () => {
                     <div className='absolute inset-0  bg-opacity-50 flex flex-col items-center rounded-lg justify-center'>
                         <h2 className='text-white text-4xl font-bold'>Products</h2>
                         <p className='text-white my-2 text-lg'>Up to 70% Off</p>
-                        <button className='text-white bg-yellow-600 px-3 py-2 hover:bg-yellow-500 rounded-md'>Shop Now</button>
+                        <button onClick={()=>{navigate('/products')}} className='text-white bg-yellow-600 px-3 py-2 hover:bg-yellow-500 rounded-md'>Shop Now</button>
                     </div>
                 </div>
                 {/* fourth banner */}
@@ -52,7 +56,7 @@ const MultiBanner = () => {
                     <div className='absolute inset-0  bg-opacity-50 flex flex-col items-center rounded-lg justify-center'>
                         <h2 className='text-white text-4xl font-bold'>Popular</h2>
                         <p className='text-white my-2 text-lg'>Populated Campaigns</p>
-                        <button className='text-white bg-red-500 px-3 py-2 hover:bg-red-600 rounded-md'>Shop Now</button>
+                        <button onClick={()=>{navigate('/campaigns')}} className='text-white bg-red-500 px-3 py-2 hover:bg-red-600 rounded-md'>Shop Now</button>
                     </div>
                 </div>
                 {/* fifth banner */}
@@ -63,7 +67,7 @@ const MultiBanner = () => {
                     className='w-full h-full object-cover rounded-lg shadow-lg' 
                     />
                     <div className='absolute inset-0  rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
-                        <h2 className='text-white text-2xl font-bold'>Ending soon</h2>
+                        <h2 onClick={()=>{navigate('/campaigns')}} className='text-white text-2xl font-bold'>Ending soon</h2>
                     </div>
                 </div>
                 {/* sixth banner */}
@@ -75,7 +79,7 @@ const MultiBanner = () => {
                     />
                     <div className='absolute inset-0 rounded-lg bg-opacity-50 flex flex-col items-center justify-center'>
                         <h2 className='text-white text-2xl font-bold'>New Arrivals</h2>
-                        <button className='mt-2 px-3 py-1 bg-white text-green-800 rounded-md shadow hover:bg-gray-200'>Discover</button>
+                        <button onClick={()=>{navigate('/products')}} className='mt-2 px-3 py-1 bg-white text-green-800 rounded-md shadow hover:bg-gray-200'>Discover</button>
                     </div>
                 </div>
             </div>
