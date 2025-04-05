@@ -192,7 +192,7 @@ const CreateProductCampaign = () => {
             />
           </div>
           <button type="submit" className="w-full px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300">
-            Update Campaign
+            Create Campaign
           </button>
         </form>
       </div>

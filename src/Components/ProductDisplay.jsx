@@ -67,6 +67,7 @@ const ProductDisplay = () => {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
+      //    "Content-Type": "application/json"
         },
       });
 
@@ -77,7 +78,7 @@ const ProductDisplay = () => {
           ...product,
           status: product.status === "open" ? "closed" : "open"
         };
-        setProduct(updatedProduct);
+        setProduct(updatedProduct); 
         localStorage.setItem("selectedProduct", JSON.stringify(updatedProduct));
       } else {
         toast.error(data.message || "Error changing campaign status");
