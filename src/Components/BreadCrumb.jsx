@@ -24,7 +24,7 @@ const Breadcrumb = () => {
       <Link to="/" className="hover:underline">HOME</Link>
       <ChevronRight />
       <div onClick={()=>{navigate(-1)}}  className="hover:underline">
-        Back
+        Backk
       </div>
       <ChevronRight />
       <span className="text-gray-900">{product.title || "Product"}</span>
